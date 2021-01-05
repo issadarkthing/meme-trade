@@ -6,6 +6,9 @@
     "url": "https://github.com/issadarkthing/meme-broker"
   },
   "main": "main.js",
+  "engines": {
+	  "node": "13.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon -r dotenv/config ./dist/main.js",
