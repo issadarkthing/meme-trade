@@ -1,4 +1,5 @@
 import { Document, Model } from "mongoose"
+import { ITransactionDocument } from "../transaction/types";
 
 
 export interface ITrader {
@@ -10,10 +11,12 @@ export interface ITrader {
 }
 
 export interface ITraderDocument extends ITrader, Document {
-	hasItem(url: string): boolean;
-	addItem(url: string, count?: number): void;
-	removeItem(url: string, count?: number): void;
-	countItem(url: string): number;
+	hasItem(transactionID: string): boolean;
+	addItem(transactionID: string, count?: number): void;
+	removeItem(transactionID: string, count?: number): void;
+	countItem(transactionID: string): number;
+	getTransactions(): Promise<ITransactionDocument[]>;
+	hasItemByUrl(url: string): boolean;
 }
 
 export interface ITraderModel extends Model<ITraderDocument> {

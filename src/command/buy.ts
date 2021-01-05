@@ -50,10 +50,11 @@ export default {
 				transaction.operation = "BUY"
 				transaction.created = transactionDate
 				transaction.save()
+
+				trader.addItem(transaction._id)
 			}
 
 			trader.balance -= data.value * unit
-			trader.addItem(url, unit)
 			trader.save()
 
 			msg.channel.send("Process completed successfully")

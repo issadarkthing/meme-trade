@@ -1,25 +1,42 @@
 import { ITraderDocument } from "./types";
+import { TransactionModel } from "../transaction/model"
+import { ITransactionDocument } from "../transaction/types";
 
 
 
-export function hasItem(this: ITraderDocument, url: string) {
-	return this.items.some(x => x === url)
+export function hasItem(this: ITraderDocument, transactionID: string) {
+	return this.items.some(x => x === transactionID)
 }
 
-export function countItem(this: ITraderDocument, url: string) {
-	return this.items.reduce((acc, val) => val === url ? acc + 1 : acc, 0)
+// get all owned item transactions
+// items that has been sold are excluded
+export async function getTransactions(this: ITraderDocument) {
+	// find transactions made with this url and this user
+	const transactions = await TransactionModel.find({ 
+		_id: {
+			$includes: this.items
+		} 
+	}) as ITransactionDocument[]
+
+	return transactions
 }
 
-export function removeItem(this: ITraderDocument, url: string, count = 1) {
-	for (let i = 0; i < count; i++) {
-		this.items = remove(url, this.items)
-	}
+export async function hasItemByUrl(this: ITraderDocument, url: string) {
+	const transactions = await this.getTransactions()
+	return transactions.some(x => x.url === url)
 }
 
-export function addItem(this: ITraderDocument, url: string, count = 1) {
-	for (let i = 0; i < count; i++) {
-		this.items.push(url)
-	}
+export function countItem(this: ITraderDocument, transactionID: string) {
+	return this.items
+		.reduce((acc, val) => val === transactionID ? acc + 1 : acc, 0)
+}
+
+export function removeItem(this: ITraderDocument, transactionID: string) {
+	this.items = remove(transactionID, this.items)
+}
+
+export function addItem(this: ITraderDocument, transactionID: string) {
+	this.items.push(transactionID)
 }
 
 function remove<T>(item: T, arr: T[]): T[] {

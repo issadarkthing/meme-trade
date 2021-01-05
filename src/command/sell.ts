@@ -54,10 +54,11 @@ export default {
 				transaction.operation = "SELL"
 				transaction.created = transactionDate
 				transaction.save()
+
+				trader.removeItem(transaction._id)
 			}
 
 			trader.balance += data.value * unit
-			trader.removeItem(url, unit)
 			trader.save()
 			msg.channel.send("Process completed successfully")
 		} catch (e) {
