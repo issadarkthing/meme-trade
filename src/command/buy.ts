@@ -54,7 +54,10 @@ export default {
 			trader.balance -= item.value
 			trader.save()
 
-			msg.channel.send("Process completed successfully")
+			msg.channel.send("Transaction completed successfully")
+			const text =
+				`**Buy:** \`${item.value}\` **Balance:** \`${trader.balance}\``
+			msg.channel.send(text)
 		} catch (e) {
 			msg.channel.send("There was an error while processing your transaction")
 			console.error(e)

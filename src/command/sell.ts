@@ -51,10 +51,15 @@ export default {
 			const buyTransaction = transactions.find(x => x.url === url)!;
 
 			trader.removeItem(buyTransaction._id)
+			const profit = item.value - buyTransaction.value
+			const profitPercent = (profit / buyTransaction.value * 100).toFixed(2)
 
 			trader.balance += item.value
 			trader.save()
-			msg.channel.send("Process completed successfully")
+			msg.channel.send("Transaction completed successfully")
+			const text =
+				`**Sell:** \`${item.value}\` **Profit:** \`${profit} (${profitPercent}%)\``
+			msg.channel.send(text)
 		} catch (e) {
 			msg.channel.send("There was an error while processing your transaction")
 		}
