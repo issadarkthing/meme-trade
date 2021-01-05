@@ -18,7 +18,7 @@ export default {
 
 		const embed = new MessageEmbed()
 		.addField("Name", trader.username)
-		.addField("Balance", trader.balance + " vc")
+		.addField("Balance", `\`${trader.balance} vc\``)
 
 		let items = ""
 
@@ -31,7 +31,8 @@ export default {
 			const delta = newValue - oldValue
 			const deltaPercentage = (delta / oldValue * 100).toFixed(2)
 			const emoji = delta >= 0 ? "📈" : "📉"
-			const text = `\n[${i + 1}](${item.url}). \`${deltaPercentage}%\` ${emoji}`
+			const text = 
+				`\n[${i + 1}](${item.url}). \`${delta.toPrecision(4)}\` ${emoji} \`${deltaPercentage}%\``
 			items += text
 		}
 
