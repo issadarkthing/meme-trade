@@ -9,6 +9,7 @@ TraderSchema.methods.hasItem = methods.hasItem
 TraderSchema.methods.removeItem = methods.removeItem
 TraderSchema.methods.addItem = methods.addItem
 TraderSchema.methods.countItem = methods.countItem
+TraderSchema.methods.getTransactions = methods.getTransactions
 
 TraderSchema.statics.findByUserId = statics.findByUserId
 

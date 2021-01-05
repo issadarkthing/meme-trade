@@ -14,7 +14,7 @@ export async function getTransactions(this: ITraderDocument) {
 	// find transactions made with this url and this user
 	const transactions = await TransactionModel.find({ 
 		_id: {
-			$includes: this.items
+			$in: this.items
 		} 
 	}) as ITransactionDocument[]
 
