@@ -8,6 +8,7 @@ import { noProfileErr } from "../template/error";
 
 export default {
 	name: "buy",
+	aliases: ["b"],
 	async exec(msg: Message, args: string[]) {
 
 		const user = msg.author

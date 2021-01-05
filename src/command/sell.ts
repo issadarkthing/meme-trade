@@ -7,6 +7,7 @@ import { Item } from "../structure/item"
 
 export default {
 	name: "sell",
+	aliases: ["s"],
 	async exec(msg: Message, args: string[]) {
 		
 		const user = msg.author

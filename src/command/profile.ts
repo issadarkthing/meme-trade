@@ -1,4 +1,3 @@
-import { stripIndents } from "common-tags";
 import { Message, MessageEmbed } from "discord.js";
 import { Item } from "../structure/item";
 import { TraderModel } from "../structure/trader/model";
@@ -6,6 +5,7 @@ import { noProfileErr } from "../template/error";
 
 export default {
 	name: "profile",
+	aliases: ["p"],
 	async exec(msg: Message, _: string[]) {
 		
 		const user = msg.author

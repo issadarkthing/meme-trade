@@ -4,6 +4,7 @@ import { Item } from "../structure/item"
 
 export default {
 	name: "value",
+	aliases: ["v"],
 	async exec(msg: Discord.Message, args: string[]) {
 
 		const [url] = args

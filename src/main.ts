@@ -4,8 +4,9 @@ import mongoose from "mongoose"
 import { walk } from "./utils"
 
 interface Command {
-	name: string
-	exec: (msg: Discord.Message, args: string[]) => void
+	name: string;
+	aliases?: string[];
+	exec: (msg: Discord.Message, args: string[]) => void;
 }
 
 const uri = process.env.MONGODB_TOKEN
@@ -43,7 +44,9 @@ bot.on("message", msg => {
 	}
 
 	const commandName = prefix.replace(/^r!/, "")
-	const command = commands.get(commandName)
+	const command = 
+		commands.find(x => x.aliases?.includes(commandName) || false) 
+		|| commands.get(commandName)
 
 	if (!command) {
 		msg.channel.send("invalid command")
