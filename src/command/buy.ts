@@ -1,8 +1,9 @@
+import { oneLine } from "common-tags";
 import { Message } from "discord.js";
+import { Item } from "../structure/item";
 import { TraderModel } from "../structure/trader/model";
 import { TransactionModel } from "../structure/transaction/model";
 import { noProfileErr } from "../template/error";
-import { getData } from "./value";
 
 
 export default {
@@ -18,17 +19,19 @@ export default {
 		}
 
 		let [url] = args
-		let data: { score: number, age: number, value: number };
+		let item: Item
 
 		try {
-			data = await getData(url)
+			item = await Item.getItem(url)
 		} catch {
 			msg.channel.send("Invalid url")	
 			return
 		}
 
-		if (trader.balance < data.value) {
-			msg.channel.send("Insufficient balance")
+		if (trader.balance < item.value) {
+			const errMessage = oneLine`Insufficient balance,
+			item value is \`${item.value} vc\` you have \`${trader.balance} vc\``
+			msg.channel.send(errMessage)
 			return
 		} 
 
@@ -38,16 +41,16 @@ export default {
 			const transaction = new TransactionModel()
 			transaction.userID = trader.userID
 			transaction.url = url
-			transaction.value = data.value
-			transaction.score = data.score
-			transaction.age = data.age
+			transaction.value = item.value
+			transaction.score = item.score
+			transaction.age = item.age
 			transaction.operation = "BUY"
 			transaction.created = transactionDate
 			transaction.save()
 
 			trader.addItem(transaction._id)
 
-			trader.balance -= data.value
+			trader.balance -= item.value
 			trader.save()
 
 			msg.channel.send("Process completed successfully")
