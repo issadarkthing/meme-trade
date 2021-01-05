@@ -17,7 +17,7 @@ export default {
 			return
 		}
 
-		let [url, arg2] = args
+		let [url] = args
 		let data: { score: number, age: number, value: number };
 
 		try {
@@ -27,34 +27,27 @@ export default {
 			return
 		}
 
-		const unit = arg2 ? Number(arg2) : 1
-
-		if (trader.balance < data.value * unit) {
+		if (trader.balance < data.value) {
 			msg.channel.send("Insufficient balance")
 			return
-		} else if (Number.isNaN(unit)) {
-			msg.channel.send("Invalid unit")
-			return
-		}
+		} 
 
 		const transactionDate = new Date()
 
 		try {
-			for (let i = 0; i < unit; i++) {
-				const transaction = new TransactionModel()
-				transaction.userID = trader.userID
-				transaction.url = url
-				transaction.value = data.value
-				transaction.score = data.score
-				transaction.age = data.age
-				transaction.operation = "BUY"
-				transaction.created = transactionDate
-				transaction.save()
+			const transaction = new TransactionModel()
+			transaction.userID = trader.userID
+			transaction.url = url
+			transaction.value = data.value
+			transaction.score = data.score
+			transaction.age = data.age
+			transaction.operation = "BUY"
+			transaction.created = transactionDate
+			transaction.save()
 
-				trader.addItem(transaction._id)
-			}
+			trader.addItem(transaction._id)
 
-			trader.balance -= data.value * unit
+			trader.balance -= data.value
 			trader.save()
 
 			msg.channel.send("Process completed successfully")

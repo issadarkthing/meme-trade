@@ -17,7 +17,7 @@ export default {
 			return
 		}
 
-		let [url, arg2] = args
+		let [url] = args
 		let data: { score: number, value: number, age: number };
 
 		try {
@@ -27,38 +27,31 @@ export default {
 			return
 		}
 
-		const unit = arg2 ? Number(arg2) : 1
+		let transactions = await trader.getTransactions()
+		const hasItem = transactions.some(x => x.url === url)
 
-		if (Number.isNaN(unit)) {
-			msg.channel.send("Invalid unit")
-			return
-		} 
-
-		const itemsOwned = trader.countItem(url)
-
-		if (itemsOwned === 0) {
+		if (!hasItem) {
 			msg.channel.send(`You do not own any unit for \`${url}\``)
 			return
 		}
 
-		const transactionDate = new Date()
 
 		try {
-			for (let i = 0; i < unit; i++) {
-				const transaction = new TransactionModel()
-				transaction.userID = trader.userID
-				transaction.url = url
-				transaction.value = data.value
-				transaction.score = data.score
-				transaction.age = data.age
-				transaction.operation = "SELL"
-				transaction.created = transactionDate
-				transaction.save()
+			const transaction = new TransactionModel()
+			transaction.userID = trader.userID
+			transaction.url = url
+			transaction.value = data.value
+			transaction.score = data.score
+			transaction.age = data.age
+			transaction.operation = "SELL"
+			transaction.created = new Date()
+			transaction.save()
 
-				trader.removeItem(transaction._id)
-			}
+			const buyTransaction = transactions.find(x => x.url === url)!;
 
-			trader.balance += data.value * unit
+			trader.removeItem(buyTransaction._id)
+
+			trader.balance += data.value
 			trader.save()
 			msg.channel.send("Process completed successfully")
 		} catch (e) {
