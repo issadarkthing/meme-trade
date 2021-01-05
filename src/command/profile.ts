@@ -36,7 +36,9 @@ export default {
 			items += text
 		}
 
-		embed.addField("Items", items)
+		if (items.length > 0) {
+			embed.addField("Items", items)
+		}
 
 		msg.channel.send(embed)
 	}
