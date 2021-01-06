@@ -34,6 +34,7 @@ walk(path.resolve(__dirname, "command"), (err, res) => {
 
 bot.on("ready", () => {
 	console.log(bot.user?.username + " is ready")
+	bot.user?.setActivity("memes", { type: "WATCHING" })
 })
 
 bot.on("message", msg => {
