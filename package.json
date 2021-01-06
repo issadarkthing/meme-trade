@@ -5,14 +5,14 @@
   "repository": {
     "url": "https://github.com/issadarkthing/meme-broker"
   },
-  "main": "dist/main.js",
+  "main": "dist/src/main.js",
   "engines": {
     "node": "13.x"
   },
   "scripts": {
     "test": "jest",
 	"coverage": "jest --coverage",
-    "start": "nodemon -r dotenv/config ./dist/main.js",
+    "start": "nodemon -r dotenv/config ./dist/src/main.js",
     "build": "tsc"
   },
   "keywords": [],
