@@ -40,6 +40,10 @@ export default {
 
 
 		try {
+			const buyTransaction = transactions.find(x => x.url === url)!;
+			const profit = item.value - buyTransaction.value
+			const profitPercent = (profit / buyTransaction.value * 100).toFixed(2)
+
 			const transaction = new TransactionModel()
 			transaction.userID = trader.userID
 			transaction.url = url
@@ -48,13 +52,12 @@ export default {
 			transaction.age = item.age
 			transaction.operation = "SELL"
 			transaction.created = new Date()
+			transaction.buyTransactionID = buyTransaction._id
+			transaction.profitMargin = profit
 			transaction.save()
 
-			const buyTransaction = transactions.find(x => x.url === url)!;
 
 			trader.removeItem(buyTransaction._id)
-			const profit = item.value - buyTransaction.value
-			const profitPercent = (profit / buyTransaction.value * 100).toFixed(2)
 
 			trader.balance += item.value
 			trader.save()

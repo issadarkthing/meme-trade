@@ -10,6 +10,8 @@ export const TransactionSchema = new Schema({
 	age: Number,
 	operation: String,
 	created: Date,
+	profitMargin: Number,
+	buyTransactionID: Number,
 })
 
 
