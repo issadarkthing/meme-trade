@@ -5,7 +5,7 @@
   "repository": {
     "url": "https://github.com/issadarkthing/meme-broker"
   },
-  "main": "main.js",
+  "main": "dist/main.js",
   "engines": {
     "node": "13.x"
   },
