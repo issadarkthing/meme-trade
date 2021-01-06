@@ -1,5 +1,4 @@
 import fetch from "node-fetch"
-import url from "url"
 
 interface Data {
 	value: number;
@@ -32,7 +31,7 @@ export class Item {
 
 	static async getItem(url: string) {
 
-		const targetUrl = "https://reddit.com" + parseUrl(url)
+		const targetUrl = parseUrl(url)
 
 		const options = {
 			headers: {
@@ -52,14 +51,8 @@ export class Item {
 }
 
 // get rid of query paramater and leading slash
-function parseUrl(targetUrl: string) {
-	const pathName = url.parse(targetUrl).pathname
-	if (!pathName) {
-		throw new Error("invalid url")
-	}
-
-	// strips leading slash
-	return pathName.replace(/\/$/, "")
+export function parseUrl(targetUrl: string) {
+	return targetUrl.replace(/\?.*$/, "").replace(/\/$/, "")
 }
 
 function getTimeSecond() {

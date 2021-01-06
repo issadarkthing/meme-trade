@@ -1,6 +1,6 @@
 import { oneLine } from "common-tags";
 import { Message } from "discord.js";
-import { Item } from "../structure/item";
+import { Item, parseUrl } from "../structure/item";
 import { TraderModel } from "../structure/trader/model";
 import { TransactionModel } from "../structure/transaction/model";
 import { noProfileErr } from "../template/error";
@@ -21,6 +21,8 @@ export default {
 
 		let [url] = args
 		let item: Item
+
+		url = parseUrl(url)
 
 		try {
 			item = await Item.getItem(url)

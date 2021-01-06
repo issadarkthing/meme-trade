@@ -1,7 +1,7 @@
 import { ITraderDocument } from "./types";
 import { TransactionModel } from "../transaction/model"
 import { ITransactionDocument } from "../transaction/types";
-
+import { parseUrl } from "../item"
 
 
 export function hasItem(this: ITraderDocument, transactionID: string) {
@@ -23,7 +23,7 @@ export async function getTransactions(this: ITraderDocument) {
 
 export async function hasItemByUrl(this: ITraderDocument, url: string) {
 	const transactions = await this.getTransactions()
-	return transactions.some(x => x.url === url)
+	return transactions.some(x => x.url === parseUrl(url))
 }
 
 export function countItem(this: ITraderDocument, transactionID: string) {
