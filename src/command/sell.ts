@@ -1,7 +1,7 @@
 import { Message } from "discord.js";
 import { TraderModel } from "../structure/trader/model";
 import { TransactionModel } from "../structure/transaction/model";
-import { noProfileErr, noUrlErr } from "../template/error";
+import { invalidSubredditErr, noProfileErr, noUrlErr } from "../template/error";
 import { Item, parseUrl } from "../structure/item"
 
 
@@ -30,6 +30,9 @@ export default {
 			msg.channel.send("Invalid url")
 			return
 		}
+
+    if (!item.isValid)
+      return invalidSubredditErr(msg);
 
 		let transactions = await trader.getTransactions()
 		const hasItem = transactions.some(x => x.url === url)

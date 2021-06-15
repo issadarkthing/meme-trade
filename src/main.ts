@@ -20,6 +20,10 @@ mongoose.set("useFindAndModify", false);
 
 const bot = new Discord.Client()
 const commands = new Discord.Collection<string, Command>();
+export const validSubs = [
+  "dankmemes",
+  "wholesomememes",
+];
 
 walk(path.resolve(__dirname, "command"), (err, res) => {
 

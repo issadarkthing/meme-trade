@@ -1,10 +1,12 @@
 import fetch from "node-fetch"
+import { validSubs } from "../main";
 
 interface Data {
 	value: number;
 	score: number;
 	age: number;
 	url: string;
+  isValid: boolean;
 }
 
 export class Item {
@@ -12,11 +14,13 @@ export class Item {
 	score: number;
 	age: number;
 	url: string;
+  isValid: boolean;
 	constructor(data: Data) {
 		this.value = data.value
 		this.score = data.score
 		this.age = data.age
 		this.url = data.url
+    this.isValid = data.isValid;
 	}
 
 	async getDelta(): Promise<number> {
@@ -42,10 +46,14 @@ export class Item {
 		const jsonContent = await res.json()
 
 		const post = jsonContent[0].data.children[0].data
+
+    const subreddit = post.subreddit;
+    const isValid = isValidSubreddit(subreddit);
+
 		const score: number = post.score
 		const age = getTimeSecond() - post.created_utc
 		const value = score / age
-		return new Item({ score, age, value, url })
+		return new Item({ score, age, value, url, isValid })
 	}
 
 }
@@ -55,8 +63,14 @@ export function parseUrl(targetUrl: string) {
 	return targetUrl.replace(/\?.*$/, "").replace(/\/$/, "")
 }
 
+export function isComment(targetUrl: string) {
+  return targetUrl.split("/").length === 8;
+}
+
 function getTimeSecond() {
 	return Math.floor(new Date().getTime() / 1000)
 }
 
-
+function isValidSubreddit(subreddit: string) {
+  return validSubs.some(validSub => validSub === subreddit);
+}

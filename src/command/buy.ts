@@ -3,7 +3,7 @@ import { Message } from "discord.js";
 import { Item, parseUrl } from "../structure/item";
 import { TraderModel } from "../structure/trader/model";
 import { TransactionModel } from "../structure/transaction/model";
-import { noProfileErr, noUrlErr } from "../template/error";
+import { invalidSubredditErr, noProfileErr, noUrlErr } from "../template/error";
 
 
 export default {
@@ -31,6 +31,9 @@ export default {
 			msg.channel.send("Invalid url")	
 			return
 		}
+
+    if (!item.isValid)
+      return invalidSubredditErr(msg);
 
 		if (trader.balance < item.value) {
 			const errMessage = oneLine`Insufficient balance,
