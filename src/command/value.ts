@@ -24,7 +24,7 @@ function displayMemeValue(item: Item) {
 	const text = stripIndents`
 		**Score**: \`${item.score} upvotes\` 
 		**Age**: \`${item.age} seconds\`
-		**Value**: \`${item.value} vc\``
+		**Value**: \`${item.value} VNC\``
 
 	return text
 }

@@ -33,7 +33,7 @@ export default {
 
 		if (trader.balance < item.value) {
 			const errMessage = oneLine`Insufficient balance,
-			item value is \`${item.value} vc\` you have \`${trader.balance} vc\``
+			item value is \`${item.value} VNC\` you have \`${trader.balance} VNC\``
 			msg.channel.send(errMessage)
 			return
 		} 

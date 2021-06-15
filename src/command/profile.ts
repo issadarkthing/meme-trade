@@ -18,7 +18,7 @@ export default {
 
 		const embed = new MessageEmbed()
 		.addField("Name", trader.username)
-		.addField("Balance", `\`${trader.balance} vc\``)
+		.addField("Balance", `\`${trader.balance} VNC\``)
 
 		let items = ""
 
