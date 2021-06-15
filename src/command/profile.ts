@@ -11,14 +11,12 @@ export default {
 		const user = msg.author
 		const trader = await TraderModel.findByUserId(user.id)
 
-		if (!trader) {
-			noProfileErr(msg)
-			return
-		}
+		if (!trader)
+      return noProfileErr(msg);
 
 		const embed = new MessageEmbed()
-		.addField("Name", trader.username)
-		.addField("Balance", `\`${trader.balance} VNC\``)
+		  .addField("Name", trader.username)
+		  .addField("Balance", `\`${trader.balance} VNC\``)
 
 		let items = ""
 

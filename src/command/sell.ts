@@ -1,7 +1,7 @@
 import { Message } from "discord.js";
 import { TraderModel } from "../structure/trader/model";
 import { TransactionModel } from "../structure/transaction/model";
-import { noProfileErr } from "../template/error";
+import { noProfileErr, noUrlErr } from "../template/error";
 import { Item, parseUrl } from "../structure/item"
 
 
@@ -13,13 +13,14 @@ export default {
 		const user = msg.author
 		const trader = await TraderModel.findByUserId(user.id)
 
-		if (!trader) {
-			noProfileErr(msg)
-			return
-		}
+		if (!trader)
+			return noProfileErr(msg);
 
 		let [url] = args
 		let item: Item;
+
+    if (!url)
+      return noUrlErr(msg);
 
 		url = parseUrl(url)
 

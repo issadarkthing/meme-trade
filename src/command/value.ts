@@ -1,6 +1,7 @@
 import Discord from "discord.js"
 import { stripIndents } from "common-tags"
 import { Item } from "../structure/item"
+import { noUrlErr } from "../template/error";
 
 export default {
 	name: "value",
@@ -8,6 +9,9 @@ export default {
 	async exec(msg: Discord.Message, args: string[]) {
 
 		const [url] = args
+
+    if (!url)
+      return noUrlErr(msg);
 
 		try {
 			const item = await Item.getItem(url)
