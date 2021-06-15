@@ -22,7 +22,12 @@ const bot = new Discord.Client()
 const commands = new Discord.Collection<string, Command>();
 export const validSubs = [
   "dankmemes",
+  "memes",
   "wholesomememes",
+  "raimimemes",
+  "historymemes",
+  "okbuddyretard",
+  "comedyheaven",
 ];
 
 walk(path.resolve(__dirname, "command"), (err, res) => {
