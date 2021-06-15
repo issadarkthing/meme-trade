@@ -30,7 +30,7 @@ export default {
 			const deltaPercentage = (delta / oldValue * 100).toFixed(2)
 			const emoji = delta >= 0 ? "📈" : "📉"
 			const text = 
-				`\n[${i + 1}](${item.url}). \`${delta.toPrecision(4)}\` ${emoji} \`${deltaPercentage}%\``
+				`\n${i + 1}. \`${delta.toPrecision(4)}\` ${emoji} \`${deltaPercentage}%\` [[link]](${item.url})`
 			items += text
 		}
 
