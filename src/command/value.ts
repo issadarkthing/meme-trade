@@ -28,6 +28,7 @@ function displayMemeValue(item: Item) {
 	const text = stripIndents`
 		**Score**: \`${item.score} upvotes\` 
 		**Age**: \`${item.age} seconds\`
+    **Upvote Ratio**: \`${item.upvoteRatio}\`
 		**Value**: \`${item.value} VNC\``
 
 	return text

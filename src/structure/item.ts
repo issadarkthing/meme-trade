@@ -7,6 +7,7 @@ interface Data {
 	age: number;
 	url: string;
   isValid: boolean;
+  upvoteRatio: number;
 }
 
 export class Item {
@@ -15,12 +16,14 @@ export class Item {
 	age: number;
 	url: string;
   isValid: boolean;
+  upvoteRatio: number;
 	constructor(data: Data) {
 		this.value = data.value
 		this.score = data.score
 		this.age = data.age
 		this.url = data.url
     this.isValid = data.isValid;
+    this.upvoteRatio = data.upvoteRatio;
 	}
 
 	async getDelta(): Promise<number> {
@@ -50,10 +53,11 @@ export class Item {
     const subreddit = post.subreddit;
     const isValid = isValidSubreddit(subreddit);
 
-		const score: number = post.score
+		const score: number = post.score;
+    const upvoteRatio: number = post.upvote_ratio;
 		const age = getTimeSecond() - post.created_utc
-		const value = score / age
-		return new Item({ score, age, value, url, isValid })
+		const value = (score / age) * upvoteRatio;
+		return new Item({ score, age, value, url, isValid, upvoteRatio })
 	}
 
 }
