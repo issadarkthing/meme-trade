@@ -10,7 +10,7 @@ export default {
     const help = stripIndent`
     MemeBroker is trading bot based on reddit posts on reddit. Trading is 
     limited to only a few subreddits which are \`r/dankmemes\` and \`r/memes\`.
-    Meme value is calculated based on its upvote per age (seconds).
+    Meme value is calculated based on its upvote, upvote ratio per age (seconds).
 
     **r!help**
     Show commands usage.
