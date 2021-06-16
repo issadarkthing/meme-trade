@@ -8,13 +8,20 @@ export default {
 	aliases: ["v"],
 	async exec(msg: Discord.Message, args: string[]) {
 
-		const [url] = args
+		const [url, unit] = args
 
     if (!url)
       return noUrlErr(msg);
 
+    if (unit)
+      if (!parseInt(unit))
+        return msg.channel.send("Please give valid unit");
+
 		try {
-			const item = await Item.getItem(url)
+			const item = unit ? 
+        await Item.getItem(url, parseInt(unit)) :
+        await Item.getItem(url);
+
 			const text = displayMemeValue(item)
 			msg.channel.send(text)
 		} catch {
@@ -29,7 +36,10 @@ function displayMemeValue(item: Item) {
 		**Score**: \`${item.score} upvotes\` 
 		**Age**: \`${item.age} seconds\`
     **Upvote Ratio**: \`${item.upvoteRatio}\`
-		**Value**: \`${item.value} VNC\``
+    **Value**: \`${item.value} VNC\`
+    **Units**: \`${item.unit}\`
+    **Total value**: \`${item.unit * item.value}\`
+  `
 
 	return text
 }

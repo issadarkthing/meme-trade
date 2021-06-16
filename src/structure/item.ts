@@ -8,6 +8,7 @@ interface Data {
 	url: string;
   isValid: boolean;
   upvoteRatio: number;
+  unit: number;
 }
 
 export class Item {
@@ -17,6 +18,7 @@ export class Item {
 	url: string;
   isValid: boolean;
   upvoteRatio: number;
+  unit: number;
 	constructor(data: Data) {
 		this.value = data.value
 		this.score = data.score
@@ -24,6 +26,7 @@ export class Item {
 		this.url = data.url
     this.isValid = data.isValid;
     this.upvoteRatio = data.upvoteRatio;
+    this.unit = data.unit;
 	}
 
 	async getDelta(): Promise<number> {
@@ -36,7 +39,7 @@ export class Item {
 		return delta / this.value * 100
 	}
 
-	static async getItem(url: string) {
+	static async getItem(url: string, unit = 1) {
 
 		const targetUrl = parseUrl(url)
 
@@ -57,7 +60,15 @@ export class Item {
     const upvoteRatio: number = post.upvote_ratio;
 		const age = getTimeSecond() - post.created_utc
 		const value = (score / age) * upvoteRatio;
-		return new Item({ score, age, value, url, isValid, upvoteRatio })
+		return new Item({ 
+      score, 
+      age, 
+      value, 
+      url, 
+      isValid, 
+      upvoteRatio, 
+      unit,
+    })
 	}
 
 }
