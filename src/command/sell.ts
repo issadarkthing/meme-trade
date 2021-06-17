@@ -46,34 +46,36 @@ export default {
 
 		try {
 			const buyTransaction = transactions.find(x => x.url === url)!;
-			const profit = item.value - buyTransaction.value
-			const profitPercent = (profit / buyTransaction.value * 100).toFixed(2)
+      const itemValue = item.value;
+			const profit = (itemValue - buyTransaction.value) * buyTransaction.unit;
+			const profitPercent = (profit / buyTransaction.value * 100).toFixed(2);
 
-			const transaction = new TransactionModel()
-			transaction.userID = trader.userID
-			transaction.url = url
-			transaction.value = item.value
-			transaction.score = item.score
-			transaction.age = item.age
-			transaction.operation = "SELL"
-			transaction.created = new Date()
-			transaction.buyTransactionID = buyTransaction._id
-			transaction.profitMargin = profit
+			const transaction = new TransactionModel();
+			transaction.userID = trader.userID;
+			transaction.url = url;
+			transaction.value = itemValue;
+			transaction.score = item.score;
+			transaction.age = item.age;
+			transaction.operation = "SELL";
+			transaction.created = new Date();
+			transaction.buyTransactionID = buyTransaction.id;
+			transaction.profitMargin = profit;
+      transaction.unit = buyTransaction.unit;
 			transaction.save()
 
 
-			trader.removeItem(buyTransaction._id)
+			trader.removeItem(buyTransaction.id)
 
-			trader.balance += item.value
+			trader.balance += itemValue * buyTransaction.unit;
 			trader.save()
 			msg.channel.send("Transaction completed successfully")
 
-      const itemValue = format(item.value);
 			const text =
-				`**Sell:** \`${itemValue}\` **Profit:** \`${profit} (${profitPercent}%)\``
+				`**Sell:** \`${format(itemValue)}\` **Profit:** \`${format(profit)} (${profitPercent}%)\``
 			msg.channel.send(text)
 		} catch (e) {
-			msg.channel.send("There was an error while processing your transaction")
+			msg.channel.send("There was an error while processing your transaction");
+      console.error(e);
 		}
 
 	}

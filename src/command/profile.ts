@@ -1,3 +1,4 @@
+import { oneLine } from "common-tags";
 import { Message, MessageEmbed } from "discord.js";
 import { Item } from "../structure/item";
 import { TraderModel } from "../structure/trader/model";
@@ -24,19 +25,26 @@ export default {
 		const transactions = await trader.getTransactions()
 		for (let i = 0; i < transactions.length; i++) {
 			const transaction = transactions[i]
-			const oldValue = transaction.value
-			const item = await Item.getItem(transaction.url)
-			const newValue = item.value
-			const delta = newValue - oldValue
+			const oldValue = transaction.value * transaction.unit;
+			const item = await Item.getItem(transaction.url, transaction.unit);
+			const newValue = item.getValue();
+			const delta = newValue - oldValue;
 			const deltaPercentage = (delta / oldValue * 100).toFixed(2)
 			const emoji = delta >= 0 ? "📈" : "📉"
 			const text = 
-				`\n${i + 1}. \`${format(delta)}\` ${emoji} \`${deltaPercentage}%\` [[link]](${item.url})`
+				`\n${i + 1}. \`${format(newValue)} ${format(delta)} x${item.unit}\` ${emoji} \`${deltaPercentage}%\` [[link]](${item.url})`
 			items += text
 		}
 
 		if (items.length > 0) {
 			embed.addField("Items", items)
+      embed.addField("Indicator", `
+      \`total price\` Current value of item times unit
+      \`net profit\` (new value - old value) times unit
+      \`unit\` Total unit bought
+      \`trend\` Indicates current price trend relative to original value
+      \`profit percentage\` Show profit in form of percentage
+      `);
 		}
 
 		msg.channel.send(embed)

@@ -11,6 +11,8 @@ interface Data {
   unit: number;
 }
 
+const MARKET_CAP = 1_000_000;
+
 export class Item {
 	value: number;
 	score: number;
@@ -38,6 +40,14 @@ export class Item {
 		const delta = await this.getDelta()
 		return delta / this.value * 100
 	}
+
+  getMaxUnit() {
+    return Math.floor(MARKET_CAP / this.getValue());
+  }
+
+  getValue() {
+    return this.value * this.unit;
+  }
 
 	static async getItem(url: string, unit = 1) {
 

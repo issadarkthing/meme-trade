@@ -11,6 +11,7 @@ export const TransactionSchema = new Schema({
 	created: Date,
 	profitMargin: Number,
 	buyTransactionID: String,
+  unit: Number,
 })
 
 

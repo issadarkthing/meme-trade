@@ -18,7 +18,7 @@ export default {
 		if (!trader) 
       return noProfileErr(msg);
 
-		let [url] = args
+		let [url, unit = "1"] = args;
 		let item: Item
 
     if (!url)
@@ -26,8 +26,11 @@ export default {
 
 		url = parseUrl(url)
 
+    if (!parseInt(unit))
+      return msg.channel.send("Please give valid unit");
+
 		try {
-			item = await Item.getItem(url)
+			item = await Item.getItem(url, parseInt(unit))
 		} catch {
 			msg.channel.send("Invalid url")	
 			return
@@ -36,34 +39,39 @@ export default {
     if (!item.isValid)
       return invalidSubredditErr(msg);
 
-		if (trader.balance < item.value) {
+    const itemValue = item.getValue();
+    const traderBalance = trader.balance;
+
+		if (traderBalance < itemValue) {
+
 			const errMessage = oneLine`Insufficient balance,
-			item value is \`${item.value} VNC\` you have \`${trader.balance} VNC\``
-			msg.channel.send(errMessage)
-			return
+			item value is \`${format(itemValue)} VNC\` you have \`${format(traderBalance)} VNC\``
+			return msg.channel.send(errMessage);
+
 		} 
 
 		const transactionDate = new Date()
 
 		try {
 			const transaction = new TransactionModel()
-			transaction.userID = trader.userID
-			transaction.url = url
-			transaction.value = item.value
-			transaction.score = item.score
-			transaction.age = item.age
-			transaction.operation = "BUY"
-			transaction.created = transactionDate
-			transaction.save()
+			transaction.userID = trader.userID;
+			transaction.url = url;
+			transaction.value = item.value;
+			transaction.score = item.score;
+			transaction.age = item.age;
+			transaction.operation = "BUY";
+			transaction.created = transactionDate;
+      transaction.unit = item.unit;
+			transaction.save();
 
-			trader.addItem(transaction._id)
+			trader.addItem(transaction.id);
 
-			trader.balance -= item.value
-			trader.save()
+			trader.balance -= item.getValue();
+			trader.save();
 
 			msg.channel.send("Transaction completed successfully");
 
-      const itemValue = format(item.value);
+      const itemValue = format(item.getValue());
       const balance = format(trader.balance);
 			const text = `**Buy:** \`${itemValue}\` **Balance:** \`${balance}\``
 			msg.channel.send(text)

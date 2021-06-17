@@ -10,6 +10,7 @@ export interface ITransaction {
 	created: Date;
 	profitMargin?: number;
 	buyTransactionID?: string;
+  unit: number;
 }
 
 export interface ITransactionDocument extends ITransaction, Document {}
