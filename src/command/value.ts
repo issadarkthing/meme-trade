@@ -1,5 +1,4 @@
 import Discord, { MessageEmbed } from "discord.js"
-import { stripIndents } from "common-tags"
 import { Item } from "../structure/item"
 import { noUrlErr } from "../template/error";
 import { format } from "../utils";
