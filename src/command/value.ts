@@ -1,4 +1,4 @@
-import Discord from "discord.js"
+import Discord, { MessageEmbed } from "discord.js"
 import { stripIndents } from "common-tags"
 import { Item } from "../structure/item"
 import { noUrlErr } from "../template/error";
@@ -33,14 +33,25 @@ export default {
 
 function displayMemeValue(item: Item) {
 
-	const text = stripIndents`
-		**Score**: \`${item.score}\` 
-		**Age**: \`${item.age} seconds\`
-    **Upvote Ratio**: \`${item.upvoteRatio}\`
-    **Value**: \`${format(item.value)} VNC\`
-    **Units**: \`${item.unit}\`
-    **Total value**: \`${format(item.unit * item.value)}\`
-  `
+  const value = format(item.value);
+  const totalValue = format(item.value * item.unit);
 
-	return text
+  const embed = new MessageEmbed()
+    .addField("Score", `\`${item.score}\``, true)
+    .addField("Age", `\`${item.age} seconds\``, true)
+    .addField("Upvote ratio", `\`${item.upvoteRatio}\``, true)
+    .addField("Value", `\`${value} VNC\``, true)
+    .addField("Units", `\`${item.unit}\``, true)
+    .addField("Max units", `\`${item.getMaxUnit()}\``, true)
+    .addField("Total value", `\`${totalValue} VNC\``)
+    .addField("Indicator", `
+      \`score\` Item score value
+      \`age\` Time elapsed in seconds since created
+      \`value\` Meme value per unit \`score / age * upvoteRatio\`
+      \`units\` Item multiplier
+      \`max units\` Market cap for an item is \`1M\`, so \`market cap = item value x units\`
+      \`total value\` Item value times unit
+    `);
+
+	return embed
 }
