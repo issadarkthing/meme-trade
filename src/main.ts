@@ -25,6 +25,9 @@ export const validSubs = [
   "memes",
 ];
 
+// max number of item can be hold at one time
+export const MAX_ITEM = 5;
+
 walk(path.resolve(__dirname, "command"), (err, res) => {
 
 	if (err || !res) {

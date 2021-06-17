@@ -5,6 +5,7 @@ import { Item, parseUrl } from "../structure/item";
 import { TraderModel } from "../structure/trader/model";
 import { TransactionModel } from "../structure/transaction/model";
 import { invalidSubredditErr, noProfileErr, noUrlErr } from "../template/error";
+import { MAX_ITEM } from "../main";
 
 
 export default {
@@ -53,6 +54,12 @@ export default {
 			return msg.channel.send(errMessage);
 
 		} 
+
+    const transactions = await trader.getTransactions();
+
+    if (transactions.length >= MAX_ITEM) {
+      return msg.channel.send(`You can only hold maximum ${MAX_ITEM} items`);
+    }
 
 		const transactionDate = new Date()
 
