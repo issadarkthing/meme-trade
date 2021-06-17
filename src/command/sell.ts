@@ -3,6 +3,7 @@ import { TraderModel } from "../structure/trader/model";
 import { TransactionModel } from "../structure/transaction/model";
 import { invalidSubredditErr, noProfileErr, noUrlErr } from "../template/error";
 import { Item, parseUrl } from "../structure/item"
+import { format } from "../utils";
 
 
 export default {
@@ -66,8 +67,10 @@ export default {
 			trader.balance += item.value
 			trader.save()
 			msg.channel.send("Transaction completed successfully")
+
+      const itemValue = format(item.value);
 			const text =
-				`**Sell:** \`${item.value}\` **Profit:** \`${profit} (${profitPercent}%)\``
+				`**Sell:** \`${itemValue}\` **Profit:** \`${profit} (${profitPercent}%)\``
 			msg.channel.send(text)
 		} catch (e) {
 			msg.channel.send("There was an error while processing your transaction")

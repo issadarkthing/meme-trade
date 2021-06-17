@@ -2,6 +2,7 @@ import { Message, MessageEmbed } from "discord.js";
 import { Item } from "../structure/item";
 import { TraderModel } from "../structure/trader/model";
 import { noProfileErr } from "../template/error";
+import { format } from "../utils";
 
 export default {
 	name: "profile",
@@ -16,7 +17,7 @@ export default {
 
 		const embed = new MessageEmbed()
 		  .addField("Name", trader.username)
-		  .addField("Balance", `\`${trader.balance} VNC\``)
+		  .addField("Balance", `\`${format(trader.balance)} VNC\``)
 
 		let items = ""
 
@@ -30,7 +31,7 @@ export default {
 			const deltaPercentage = (delta / oldValue * 100).toFixed(2)
 			const emoji = delta >= 0 ? "📈" : "📉"
 			const text = 
-				`\n${i + 1}. \`${delta.toPrecision(4)}\` ${emoji} \`${deltaPercentage}%\` [[link]](${item.url})`
+				`\n${i + 1}. \`${format(delta)}\` ${emoji} \`${deltaPercentage}%\` [[link]](${item.url})`
 			items += text
 		}
 

@@ -1,5 +1,6 @@
 import { oneLine } from "common-tags";
 import { Message } from "discord.js";
+import { format } from "../utils";
 import { Item, parseUrl } from "../structure/item";
 import { TraderModel } from "../structure/trader/model";
 import { TransactionModel } from "../structure/transaction/model";
@@ -60,10 +61,13 @@ export default {
 			trader.balance -= item.value
 			trader.save()
 
-			msg.channel.send("Transaction completed successfully")
-			const text =
-				`**Buy:** \`${item.value}\` **Balance:** \`${trader.balance}\``
+			msg.channel.send("Transaction completed successfully");
+
+      const itemValue = format(item.value);
+      const balance = format(trader.balance);
+			const text = `**Buy:** \`${itemValue}\` **Balance:** \`${balance}\``
 			msg.channel.send(text)
+
 		} catch (e) {
 			msg.channel.send("There was an error while processing your transaction")
 			console.error(e)

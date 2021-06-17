@@ -28,3 +28,7 @@ export function walk(dir: string, callBack: (err: Error | null, res?: string) =>
 		})
 	})
 };
+
+export function format(value: number) {
+  return value > 1 ? value.toFixed(4) : value.toPrecision(4);
+}

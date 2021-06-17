@@ -2,6 +2,7 @@ import Discord from "discord.js"
 import { stripIndents } from "common-tags"
 import { Item } from "../structure/item"
 import { noUrlErr } from "../template/error";
+import { format } from "../utils";
 
 export default {
 	name: "value",
@@ -33,12 +34,12 @@ export default {
 function displayMemeValue(item: Item) {
 
 	const text = stripIndents`
-		**Score**: \`${item.score} upvotes\` 
+		**Score**: \`${item.score}\` 
 		**Age**: \`${item.age} seconds\`
     **Upvote Ratio**: \`${item.upvoteRatio}\`
-    **Value**: \`${item.value} VNC\`
+    **Value**: \`${format(item.value)} VNC\`
     **Units**: \`${item.unit}\`
-    **Total value**: \`${item.unit * item.value}\`
+    **Total value**: \`${format(item.unit * item.value)}\`
   `
 
 	return text
