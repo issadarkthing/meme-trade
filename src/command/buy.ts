@@ -41,6 +41,10 @@ export default {
 
     const itemValue = item.getValue();
     const traderBalance = trader.balance;
+    const maxUnit = item.getMaxUnit();
+
+    if (parseInt(unit) > maxUnit)
+      return msg.channel.send(`Max unit can be bought for this item is \`${maxUnit}\``);
 
 		if (traderBalance < itemValue) {
 
