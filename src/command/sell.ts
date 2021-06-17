@@ -59,7 +59,8 @@ async function sellItem(
     const item = await Item.getItem(buyTransaction.url);
     const itemValue = item.value;
     const profit = (itemValue - buyTransaction.value) * buyTransaction.unit;
-    const profitPercent = (profit / buyTransaction.value * 100).toFixed(2);
+    const oldValue = buyTransaction.value * buyTransaction.unit;
+    const profitPercent = (profit / oldValue * 100).toFixed(2);
 
     const transaction = new TransactionModel();
     transaction.userID = trader.userID;
