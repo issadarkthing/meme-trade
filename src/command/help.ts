@@ -21,8 +21,9 @@ export default {
     \`r!buy <link> [unit]\`
     Buy meme from reddit with it's current value.
 
-    \`r!sell <index>\`
-    Sell meme from reddit with it's current value.
+    \`r!sell <index | all>\`
+    Sell meme from reddit with it's current value. To sell all memes, you can
+    just use \`r!sell all\`
 
     \`r!profile\`
     Show user profile with currently holding memes.
