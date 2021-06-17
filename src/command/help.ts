@@ -21,7 +21,7 @@ export default {
     \`r!buy <link> [unit]\`
     Buy meme from reddit with it's current value.
 
-    \`r!sell <link>\`
+    \`r!sell <index>\`
     Sell meme from reddit with it's current value.
 
     \`r!profile\`
