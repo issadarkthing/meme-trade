@@ -42,7 +42,7 @@ export class Item {
 	}
 
   getMaxUnit() {
-    return Math.floor(MARKET_CAP / this.getValue());
+    return Math.floor(MARKET_CAP / this.value);
   }
 
   getValue() {
