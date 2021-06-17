@@ -26,7 +26,7 @@ export const validSubs = [
 ];
 
 // max number of item can be hold at one time
-export const MAX_ITEM = 5;
+export const MAX_ITEM = 3;
 
 walk(path.resolve(__dirname, "command"), (err, res) => {
 
