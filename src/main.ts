@@ -3,9 +3,11 @@ import path from "path"
 import mongoose from "mongoose"
 import { walk } from "./utils"
 
-interface Command {
+export interface Command {
 	name: string;
-	aliases?: string[];
+  description: string;
+  args?: string;
+	alias?: string;
 	exec: (msg: Discord.Message, args: string[]) => void;
 }
 
@@ -19,7 +21,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set("useFindAndModify", false);
 
 const bot = new Discord.Client()
-const commands = new Discord.Collection<string, Command>();
+export const commands = new Discord.Collection<string, Command>();
 export const validSubs = [
   "dankmemes",
   "memes",
@@ -52,9 +54,8 @@ bot.on("message", msg => {
 	}
 
 	const commandName = prefix.replace(/^r!/, "")
-	const command = 
-		commands.find(x => x.aliases?.includes(commandName) || false) 
-		|| commands.get(commandName)
+	const command = commands.find(x => x.alias === commandName) 
+    || commands.get(commandName);
 
 	if (!command) {
 		msg.channel.send("invalid command")

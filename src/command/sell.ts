@@ -6,12 +6,18 @@ import { Item } from "../structure/item"
 import { format } from "../utils";
 import { ITransactionDocument } from "../structure/transaction/types";
 import { ITraderDocument } from "../structure/trader/types";
-import { oneLine } from "common-tags";
+import { oneLine, stripIndent } from "common-tags";
 
 
 export default {
 	name: "sell",
-	aliases: ["s"],
+	alias: "s",
+  args: "<index | all>",
+  description: stripIndent`
+    Sell meme from reddit with it's current value. 
+    To sell 2nd meme in out items, use \`r!sell 2\`
+    To sell all memes, use \`r!sell all\`
+  `,
 	async exec(msg: Message, args: string[]) {
 		
 		const user = msg.author

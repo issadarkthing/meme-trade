@@ -1,4 +1,4 @@
-import { oneLine } from "common-tags";
+import { oneLine, stripIndent } from "common-tags";
 import { Message } from "discord.js";
 import { format } from "../utils";
 import { Item, parseUrl } from "../structure/item";
@@ -6,11 +6,18 @@ import { TraderModel } from "../structure/trader/model";
 import { TransactionModel } from "../structure/transaction/model";
 import { invalidSubredditErr, noProfileErr, noUrlErr } from "../template/error";
 import { MAX_ITEM } from "../main";
-
+import { sampleLink } from "../utils";
 
 export default {
 	name: "buy",
-	aliases: ["b"],
+	alias: "b",
+  args: "<link> [unit | max]",
+  description: stripIndent`
+    Buy meme from reddit with it's current value.
+    To buy meme with unit of 1 use \`r!buy ${sampleLink} 1\`
+    To buy meme with unit of 10 use \`r!buy ${sampleLink} 10\`
+    To buy meme with max unit use \`r!buy <link> max\`
+  `,
 	async exec(msg: Message, args: string[]) {
 
 		const user = msg.author

@@ -1,3 +1,4 @@
+import { stripIndent } from "common-tags";
 import Discord, { MessageEmbed } from "discord.js"
 import { Item } from "../structure/item"
 import { noUrlErr } from "../template/error";
@@ -5,7 +6,12 @@ import { format } from "../utils";
 
 export default {
 	name: "value",
-	aliases: ["v"],
+	alias: "v",
+  args: "<link> [unit | max]",
+  description: stripIndent`
+    Check the current value of the meme.
+    This command works exactly like \`r!sell\` except it only show meme value.
+  `,
 	async exec(msg: Discord.Message, args: string[]) {
 
 		const [url, unit = "1"] = args

@@ -7,7 +7,8 @@ import { format } from "../utils";
 
 export default {
 	name: "profile",
-	aliases: ["p"],
+	alias: "p",
+  description: "Show user profile with all currently holding memes",
 	async exec(msg: Message, _: string[]) {
 		
 		const user = msg.author

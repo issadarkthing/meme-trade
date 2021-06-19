@@ -1,6 +1,7 @@
 import fs from "fs"
 import { resolve } from "path"
 
+export const sampleLink = "htts://reddit.com/sample";
 
 export const time: { [key: string]: number } = {
 	year: 12 * 30 * 24 * 60 * 60 * 1000,

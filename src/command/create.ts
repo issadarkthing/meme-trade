@@ -3,6 +3,7 @@ import { TraderModel } from "../structure/trader/model"
 
 export default {
 	name: "create",
+  description: "Create trader profile",
 	async exec(msg: Message, _: string[]) {
 
 		const user = msg.author;
