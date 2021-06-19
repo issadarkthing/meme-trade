@@ -21,8 +21,7 @@ export default {
     **Alias:** \`r!h\`
     Show commands usage.
 
-    **Command:** \`r!help\`
-    **Alias:** \`r!h\`
+    **Command:** \`r!create\`
     Create trader profile.
 
     **Command:** \`r!profile\`
