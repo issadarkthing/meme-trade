@@ -31,9 +31,16 @@ export default {
 			const delta = newValue - oldValue;
 			const deltaPercentage = (delta / oldValue * 100).toFixed(2)
 			const emoji = delta >= 0 ? "📈" : "📉"
-			const text = 
-				`\n${i + 1}. \`${format(newValue)} ${format(delta)} x${item.unit}\` ${emoji} \`${deltaPercentage}%\` [[link]](${item.url})`
-			items += text
+			const text = oneLine`
+        ${i + 1}. 
+        \`${format(newValue)}\` 
+        \`${format(delta)}\` 
+        \`x${item.unit}\` 
+        ${emoji} 
+        \`${deltaPercentage}%\` 
+        [[link]](${item.url})`;
+
+			items += "\n" + text;
 		}
 
 		if (items.length > 0) {
