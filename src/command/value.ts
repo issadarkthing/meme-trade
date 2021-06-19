@@ -48,7 +48,7 @@ function displayMemeValue(item: Item) {
       \`age\` Time elapsed in seconds since created
       \`value\` Meme value per unit \`score / age * upvoteRatio\`
       \`units\` Item multiplier
-      \`max units\` Market cap for an item is \`1M\`, so \`market cap = item value x units\`
+      \`max units\` Market cap for an item is \`100k\`, so \`market cap = item value x units\`
       \`total value\` Item value times unit
     `);
 

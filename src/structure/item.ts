@@ -11,7 +11,7 @@ interface Data {
   unit: number;
 }
 
-const MARKET_CAP = 1_000_000;
+export const MARKET_CAP = 100_000;
 
 export class Item {
 	value: number;
