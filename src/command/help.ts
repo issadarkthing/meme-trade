@@ -7,36 +7,41 @@ export default {
   aliases: ["h"],
   async exec(msg: Message, args: string[]) {
 
+    const sampleLink = "htts://reddit.com/sample";
     const help = stripIndent`
     MemeBroker is trading bot based on reddit posts on reddit. Trading is 
     limited to only a few subreddits which are \`r/dankmemes\` and \`r/memes\`.
-    Meme value is calculated based on its upvote, upvote ratio per age (seconds).
+    Meme value is calculated based on its score & upvote ratio per age (seconds).
+    \`value = (score / age) * upvoteRatio\`
     The commands may have required or optional arguments, to differentiate
     \`<>\` is for required argument and \`[]\` is for optional. For example,
-    \`r!buy https://reddit.com/sample 10\`
+    \`r!buy ${sampleLink} 10\`
 
-    \`r!help\`
-    \`r!h\`
+    **Command:** \`r!help\`
+    **Alias:** \`r!h\`
     Show commands usage.
 
-    \`r!buy <link> [unit | max]\`
-    \`r!b <link> [unit | max]\`
+    **Command:** \`r!buy <link> [unit | max]\`
+    **Alias:** \`r!b\`
     Buy meme from reddit with it's current value.
-    To buy max meme with max unit use \`r!buy <link> max\`
+    To buy meme with unit of 1 use \`r!buy ${sampleLink} 1\`
+    To buy meme with unit of 10 use \`r!buy ${sampleLink} 10\`
+    To buy meme with max unit use \`r!buy <link> max\`
 
-    \`r!sell <index | all>\`
-    \`r!s <index | all>\`
-    Sell meme from reddit with it's current value. To sell all memes, you can
-    just use \`r!sell all\`
+    **Command:** \`r!sell <index | all>\`
+    **Alias:** \`r!s\`
+    Sell meme from reddit with it's current value. 
+    To sell 2nd meme in out items, use \`r!sell 2\`
+    To sell all memes, use \`r!sell all\`
 
-    \`r!profile\`
-    \`r!p\`
-    Show user profile with currently holding memes.
+    **Command:** \`r!profile\`
+    **Alias:** \`r!p\`
+    Show user profile with all currently holding memes.
 
-    \`r!value <link> [unit | max]\`
-    \`r!v <link> [unit | max]\`
+    **Command:** \`r!value <link> [unit | max]\`
+    **Alias:** \`r!v\`
     Check the current value of the meme.
-    To check meme value with max unit use \`r!buy <link> max\`
+    This command works exactly like \`r!sell\` except it only show meme value.
     `
 
     msg.channel.send(help);
