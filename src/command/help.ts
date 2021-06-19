@@ -21,6 +21,14 @@ export default {
     **Alias:** \`r!h\`
     Show commands usage.
 
+    **Command:** \`r!help\`
+    **Alias:** \`r!h\`
+    Create trader profile.
+
+    **Command:** \`r!profile\`
+    **Alias:** \`r!p\`
+    Show user profile with all currently holding memes.
+
     **Command:** \`r!buy <link> [unit | max]\`
     **Alias:** \`r!b\`
     Buy meme from reddit with it's current value.
@@ -33,10 +41,6 @@ export default {
     Sell meme from reddit with it's current value. 
     To sell 2nd meme in out items, use \`r!sell 2\`
     To sell all memes, use \`r!sell all\`
-
-    **Command:** \`r!profile\`
-    **Alias:** \`r!p\`
-    Show user profile with all currently holding memes.
 
     **Command:** \`r!value <link> [unit | max]\`
     **Alias:** \`r!v\`
