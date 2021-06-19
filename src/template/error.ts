@@ -6,7 +6,7 @@ export function noUrlErr(msg: Message) {
 }
 
 export function noProfileErr(msg: Message) {
-	msg.channel.send("You need to create a profile first")
+	msg.channel.send("You need to create a profile first. Use command `r!create`");
 }
 
 export function invalidSubredditErr(msg: Message) {
