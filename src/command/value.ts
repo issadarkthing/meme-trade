@@ -8,19 +8,20 @@ export default {
 	aliases: ["v"],
 	async exec(msg: Discord.Message, args: string[]) {
 
-		const [url, unit] = args
+		const [url, unit = "1"] = args
 
     if (!url)
       return noUrlErr(msg);
 
-    if (unit)
-      if (!parseInt(unit))
-        return msg.channel.send("Please give valid unit");
+    if (!parseInt(unit) && unit !== "max")
+      return msg.channel.send("Please give valid unit");
 
 		try {
-			const item = unit ? 
-        await Item.getItem(url, parseInt(unit)) :
-        await Item.getItem(url);
+
+			const item = await Item.getItem(url, parseInt(unit) || 1);
+
+      if (unit === "max")
+        item.unit = item.getMaxUnit();
 
 			const text = displayMemeValue(item)
 			msg.channel.send(text)

@@ -27,11 +27,16 @@ export default {
 
 		url = parseUrl(url)
 
-    if (!parseInt(unit))
+    if (!parseInt(unit) && unit !== "max")
       return msg.channel.send("Please give valid unit");
 
 		try {
-			item = await Item.getItem(url, parseInt(unit))
+
+			item = await Item.getItem(url, parseInt(unit) || 1);
+
+      if (unit === "max")
+        item.unit = item.getMaxUnit();
+
 		} catch {
 			msg.channel.send("Invalid url")	
 			return
