@@ -1,9 +1,14 @@
+import { stripIndent } from "common-tags";
 import { Message } from "discord.js"
 import { TraderModel } from "../structure/trader/model"
 
 export default {
 	name: "create",
-  description: "Create trader profile",
+  description: stripIndent`
+    ⚠️ **IMPORTANT** ⚠️
+    In order to start, you have to have a trader profile.
+    \`r!help\` helps you create a trader profile.
+  `,
 	async exec(msg: Message, _: string[]) {
 
 		const user = msg.author;
