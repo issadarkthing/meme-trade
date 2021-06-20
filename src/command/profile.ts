@@ -3,7 +3,7 @@ import { Message, MessageEmbed } from "discord.js";
 import { Item } from "../structure/item";
 import { TraderModel } from "../structure/trader/model";
 import { noProfileErr } from "../template/error";
-import { format } from "../utils";
+import { coinEmoji, format, orange } from "../utils";
 
 export default {
 	name: "profile",
@@ -18,10 +18,11 @@ export default {
       return noProfileErr(msg);
 
 		const embed = new MessageEmbed()
+      .setColor(orange)
 		  .addField("Name", trader.username)
-		  .addField("Balance", `\`${format(trader.balance)} VNC\``)
+		  .addField("Balance", `\`${format(trader.balance)}\` ${coinEmoji}`);
 
-		let items = ""
+		let items = "";
 
 		const transactions = await trader.getTransactions()
 		for (let i = 0; i < transactions.length; i++) {

@@ -2,7 +2,7 @@ import { stripIndent } from "common-tags";
 import Discord, { MessageEmbed } from "discord.js"
 import { Item } from "../structure/item"
 import { noUrlErr } from "../template/error";
-import { format } from "../utils";
+import { coinEmoji, format, orange } from "../utils";
 
 export default {
 	name: "value",
@@ -43,13 +43,14 @@ function displayMemeValue(item: Item) {
   const totalValue = format(item.value * item.unit);
 
   const embed = new MessageEmbed()
+    .setColor(orange)
     .addField("Score", `\`${item.score}\``, true)
     .addField("Age", `\`${item.age} seconds\``, true)
     .addField("Upvote ratio", `\`${item.upvoteRatio}\``, true)
-    .addField("Value", `\`${value} VNC\``, true)
+    .addField("Value", `\`${value}\` ${coinEmoji}`, true)
     .addField("Units", `\`${item.unit}\``, true)
     .addField("Max units", `\`${item.getMaxUnit()}\``, true)
-    .addField("Total value", `\`${totalValue} VNC\``)
+    .addField("Total value", `\`${totalValue}\` ${coinEmoji}`)
     .addField("Indicator", `
       \`score\` Item score value
       \`age\` Time elapsed in seconds since created

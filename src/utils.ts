@@ -2,6 +2,8 @@ import fs from "fs"
 import { resolve } from "path"
 
 export const sampleLink = "htts://reddit.com/sample";
+export const coinEmoji = "<:upvote:856114013594714152>";
+export const orange = "#ff4400";
 
 export const time: { [key: string]: number } = {
 	year: 12 * 30 * 24 * 60 * 60 * 1000,
