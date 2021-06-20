@@ -16,6 +16,7 @@ export interface ITraderDocument extends ITrader, Document {
 	removeItem(transactionID: string, count?: number): void;
 	countItem(transactionID: string): number;
 	getTransactions(): Promise<ITransactionDocument[]>;
+  getAllTransactions(): Promise<ITransactionDocument[]>;
 	hasItemByUrl(url: string): Promise<boolean>;
 }
 

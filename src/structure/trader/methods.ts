@@ -21,6 +21,12 @@ export async function getTransactions(this: ITraderDocument) {
 	return transactions
 }
 
+export function getAllTransactions(this: ITraderDocument) {
+  return TransactionModel
+    .find({ userID: this.userID }) 
+    .sort({ created: 'desc' });
+}
+
 export async function hasItemByUrl(this: ITraderDocument, url: string) {
 	const transactions = await this.getTransactions()
 	return transactions.some(x => x.url === parseUrl(url))

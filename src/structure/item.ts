@@ -9,6 +9,7 @@ interface Data {
   isValid: boolean;
   upvoteRatio: number;
   unit: number;
+  image: string;
 }
 
 export const MARKET_CAP = 100_000;
@@ -21,6 +22,7 @@ export class Item {
   isValid: boolean;
   upvoteRatio: number;
   unit: number;
+  image: string;
 	constructor(data: Data) {
 		this.value = data.value
 		this.score = data.score
@@ -29,6 +31,7 @@ export class Item {
     this.isValid = data.isValid;
     this.upvoteRatio = data.upvoteRatio;
     this.unit = data.unit;
+    this.image = data.image;
 	}
 
 	async getDelta(): Promise<number> {
@@ -70,6 +73,7 @@ export class Item {
     const upvoteRatio: number = post.upvote_ratio;
 		const age = getTimeSecond() - post.created_utc
 		const value = (score / age) * upvoteRatio;
+    const image = post.url;
 		return new Item({ 
       score, 
       age, 
@@ -78,6 +82,7 @@ export class Item {
       isValid, 
       upvoteRatio, 
       unit,
+      image,
     })
 	}
 
