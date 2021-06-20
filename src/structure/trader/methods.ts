@@ -21,10 +21,16 @@ export async function getTransactions(this: ITraderDocument) {
 	return transactions
 }
 
-export function getAllTransactions(this: ITraderDocument) {
-  return TransactionModel
-    .find({ userID: this.userID }) 
+export function getAllTransactions(this: ITraderDocument, limit?: number) {
+
+  const query = TransactionModel
+    .find({ userID: this.userID })
     .sort({ created: 'desc' });
+
+  if (!limit)
+    return query;
+
+  return query.limit(limit);
 }
 
 export async function hasItemByUrl(this: ITraderDocument, url: string) {
