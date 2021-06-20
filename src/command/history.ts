@@ -41,14 +41,15 @@ export default {
       const embed = new MessageEmbed()
         .setThumbnail(item.image)
         .setColor(color)
+        .setTimestamp(created)
         .addField("Total Value", `\`${format(value * unit)}\``, true)
         .addField("Value", `\`${format(value)}\``, true)
         .addField("Operation", `**${operation}** ${sign}`, true)
         .addField("Unit", `\`${unit}\``, true)
-        .addField("Created At", `\`${created.toLocaleString()}\``, true)
+        .addField("Title", item.title, true)
         .addField("Subreddit", `\`r/${item.subreddit}\``, true)
         .addField("Link", `[[link]](${url})`, true)
-        .addField("Title", item.title, true);
+        .addField("Created At", `\`${created.toLocaleString()}\``, true)
 
       msg.channel.send(embed);
     });
