@@ -23,6 +23,9 @@ export default {
 
     const transactions = await trader.getAllTransactions(parseInt(amount));
 
+    if (transactions.length === 0)
+      return msg.channel.send("No transaction has been made yet.");
+
     transactions.forEach(async transaction => {
       const {
         url,
