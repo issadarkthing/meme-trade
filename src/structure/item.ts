@@ -78,7 +78,7 @@ export class Item {
     const score: number = post.score;
     const upvoteRatio: number = post.upvote_ratio;
     const age = getTimeSecond() - post.created_utc
-    const value = (score / age) * upvoteRatio;
+    const value = (score / Math.pow(age, 1.2)) * upvoteRatio;
     const image = post.url;
     const title = post.title;
     return new Item({ 
